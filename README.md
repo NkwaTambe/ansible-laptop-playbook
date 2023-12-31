@@ -1,5 +1,7 @@
 # GIS Ansible Playbook
 
+[![Ansible CI](https://github.com/ADORSYS-GIS/ansible-laptop-playbook/actions/workflows/ansible-ci.yml/badge.svg)](https://github.com/ADORSYS-GIS/ansible-laptop-playbook/actions/workflows/ansible-ci.yml)
+
 This playbook is used to install and configure a GIS laptops.
 
 ## Requirements

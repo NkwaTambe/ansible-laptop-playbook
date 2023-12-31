@@ -15,7 +15,7 @@ jobs:
       matrix:
         role: [ common, docker, nodejs, sdkman, cargo ]
         # Optionally include Python or Ansible versions
-        python-version: ['3.8', 'latest']
+        # python-version: ['3.8', 'latest']
         # ansible-version: ['2.9', 'latest']
     steps:
       - name: Check out the repository
@@ -24,7 +24,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.11 #${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
