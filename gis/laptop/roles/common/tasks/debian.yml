@@ -1,0 +1,21 @@
+---
+- name: Install Python3, Git, Curl, Wget, and Build Essential
+  apt:
+    name:
+      - python3
+      - apt-transport-https
+      - ca-certificates
+      - gnupg-agent
+      - software-properties-common
+      - unzip
+      - zip
+      - git
+      - curl
+      - wget
+      - build-essential
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install Zsh and Oh My Zsh
+  include_tasks: zsh.yml

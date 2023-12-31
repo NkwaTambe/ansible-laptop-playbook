@@ -1,0 +1,3 @@
+---
+# vars file for roles/cargo
+rust_version: "stable"          # Default Rust version

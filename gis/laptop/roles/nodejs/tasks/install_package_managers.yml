@@ -1,0 +1,26 @@
+---
+
+- name: Source NVM and use Node.js v{{ item }}
+  shell: |
+    set -e
+    export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install {{ item }}
+  register: install_result
+  changed_when: "'already installed' not in install_result.stderr"
+
+#- name: Debug install_result
+#  debug:
+#    var: install_result
+
+- name: Install Yarn, Pnpm and other stuffs globally using npm
+  shell: |
+    set -e
+    export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm use {{ item }}
+    npm install -g yarn pnpm {{ node_common_packages }}
+  register: dep_result
+  changed_when: dep_result.rc != 0
+
+#- name: Debug dep_result
+#  debug:
+#    var: dep_result

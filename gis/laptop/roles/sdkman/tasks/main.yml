@@ -1,0 +1,26 @@
+---
+- name: Check if SDKMAN is already installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
+  register: sdkman_installed
+
+- name: Download SDKMAN
+  get_url:
+    url: "https://get.sdkman.io"
+    dest: "{{ ansible_env.HOME }}/get_sdkman.sh"
+    mode: 0755
+  when: not sdkman_installed.stat.exists
+  register: sdkman_downloaded
+
+- name: Install SDKMAN
+  shell: "{{ ansible_env.HOME }}/get_sdkman.sh"
+  when: sdkman_downloaded is succeeded
+  register: sdkman_installed
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
+
+- loop: "{{ sdkman_tools }}"
+  include_tasks: install_sdkman_package.yml
+
+

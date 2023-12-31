@@ -1,0 +1,6 @@
+---
+- name: Install Rust ({{ rust_version }}) using rustup
+  ansible.builtin.shell:
+    cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain {{ rust_version }} -y"
+    creates: "~/.cargo/bin/cargo"
+  register: result

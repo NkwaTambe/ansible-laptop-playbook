@@ -1,0 +1,11 @@
+- name: "Install '{{ item }}' using SDKMAN"
+  shell: |
+    set -e
+    source "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
+    sdk install {{ item }}
+  when: sdkman_installed is succeeded
+  args:
+    executable: /bin/bash
+  register: sdkman_tool_install
+  changed_when: "'already installed' not in sdkman_tool_install.stdout"
+

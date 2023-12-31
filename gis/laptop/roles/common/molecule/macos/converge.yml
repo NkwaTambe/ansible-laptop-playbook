@@ -1,0 +1,32 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  tasks:
+    - name: Include common role
+      include_role:
+        name: common
+
+    # Example validation tasks
+    - name: Check if Zsh is installed
+      command: zsh --version
+      register: zsh_version
+      ignore_errors: true
+      changed_when: false
+
+    - name: Assert Zsh is installed
+      ansible.builtin.assert:
+        that: zsh_version.rc == 0
+        fail_msg: "Zsh is not installed"
+
+    - name: Check if Homebrew is installed
+      command: brew --version
+      register: brew_version
+      ignore_errors: true
+      changed_when: false
+
+    - name: Assert Homebrew is installed
+      ansible.builtin.assert:
+        that: brew_version.rc == 0
+        fail_msg: "Homebrew is not installed"

@@ -1,0 +1,21 @@
+---
+- name: Install Git, Gcc, Make on CentOS
+  yum:
+    name:
+      - git
+      - gcc
+      - make
+      - python3
+      - curl
+      - wget
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+      - unzip
+      - zip
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install Zsh and Oh My Zsh
+  include_tasks: zsh.yml

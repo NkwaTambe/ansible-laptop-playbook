@@ -1,0 +1,18 @@
+---
+- hosts: all
+  name: Setup Laptop
+  vars:
+    setup_cargo: "{{ cargo | default('false') }}"
+    setup_sdkman: "{{ sdkman | default('false') }}"
+    setup_nvm: "{{ nvm | default('false') }}"
+    setup_docker: "{{ docker | default('false') }}"
+  roles:
+    - common
+    - role: gis.laptop.cargo
+      when: setup_cargo == 'true'
+    - role: gis.laptop.sdkman
+      when: setup_sdkman == 'true'
+    - role: gis.laptop.nodejs
+      when: setup_nvm == 'true'
+    - role: gis.laptop.docker
+      when: setup_docker == 'true'

@@ -1,0 +1,21 @@
+---
+# roles/common/tasks/zsh.yml
+
+- name: Install Zsh
+  package:
+    name: zsh
+    state: present
+  become: yes
+
+- name: Download Oh My Zsh Installer Script
+  get_url:
+    url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /tmp/install_oh_my_zsh.sh
+    mode: '0777'
+  become: yes
+
+- name: Run Oh My Zsh installer script
+  shell: sh /tmp/install_oh_my_zsh.sh
+  args:
+    creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  become_user: "{{ ansible_user_id }}"

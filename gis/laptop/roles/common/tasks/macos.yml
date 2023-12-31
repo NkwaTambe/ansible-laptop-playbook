@@ -1,0 +1,14 @@
+---
+- name: Install Homebrew
+  include_tasks: homebrew.yml
+
+- name: Install Git, Python3, Curl and Wget
+  homebrew:
+    update_homebrew: yes
+    name:
+      - git
+      - zsh
+      - python3
+      - curl
+      - wget
+    state: present

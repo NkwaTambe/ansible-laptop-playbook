@@ -1,0 +1,5 @@
+- name: "Install '{{ common_item }}' on v{{ item }} globally"
+  npm:
+    name: "{{ common_item }}"
+    global: yes
+    executable: "{{ ansible_env.HOME }}/.nvm/versions/node/{{ item }}/bin/npm"

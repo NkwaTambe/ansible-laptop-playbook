@@ -1,0 +1,20 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  tasks:
+    - name: Include sdkman role
+      include_role:
+        name: sdkman
+
+    - name: Check if SDKman is installed
+      command: sdk version
+      register: sdk_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert SDKman is installed
+      ansible.builtin.assert:
+        that: sdk_version.rc == 0
+        fail_msg: "SDKman is not installed"

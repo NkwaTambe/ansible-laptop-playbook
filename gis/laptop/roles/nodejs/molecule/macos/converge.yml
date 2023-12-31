@@ -1,0 +1,31 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  tasks:
+    - name: Include NodeJS role
+      include_role:
+        name: nodejs
+
+    - name: Check if NVM is installed
+      command: nvm --version
+      register: nvm_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert NVM is installed
+      ansible.builtin.assert:
+        that: nvm_version.rc == 0
+        fail_msg: "NVM is not installed"
+
+    - name: Check if NodeJS is installed
+      command: node --version
+      register: node_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert NodeJS is installed
+      ansible.builtin.assert:
+        that: node_version.rc == 0
+        fail_msg: "Node is not installed"

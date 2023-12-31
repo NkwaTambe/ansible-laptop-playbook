@@ -1,0 +1,8 @@
+---
+# vars file for roles/sdkman-role
+sdkman_tools:
+  - java
+  - maven
+  - gradle
+  - kotlin
+  - scala

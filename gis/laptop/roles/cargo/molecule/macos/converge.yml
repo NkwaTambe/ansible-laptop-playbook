@@ -1,0 +1,21 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: true
+  connection: local
+  tasks:
+    - name: Include cargo role
+      include_role:
+        name: cargo
+
+    # Example validation tasks
+    - name: Check if Cargo is installed
+      command: cargo --version
+      register: cargo_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert Cargo is installed
+      ansible.builtin.assert:
+        that: cargo_version.rc == 0
+        fail_msg: "Cargo is not installed"

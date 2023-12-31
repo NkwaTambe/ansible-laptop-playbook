@@ -1,0 +1,8 @@
+---
+- name: Include installation tasks for Debian/Ubuntu/CentOS
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: Include installation tasks for macOS
+  include_tasks: macos.yml
+  when: ansible_os_family == "Darwin"

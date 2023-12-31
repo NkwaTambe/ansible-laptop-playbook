@@ -1,0 +1,37 @@
+- name: Fail if molecule group is missing
+  hosts: localhost
+  tasks:
+    - name: Print some info
+      ansible.builtin.debug:
+        msg: "{{ groups }}"
+
+    - name: Assert group existence
+      ansible.builtin.assert:
+        that: "'molecule' in groups"
+        fail_msg: |
+          molecule group was not found inside inventory groups: {{ groups }}
+
+- name: Converge
+  hosts: molecule
+  gather_facts: true
+  tasks:
+    - name: Include sdkman role
+      include_role:
+        name: sdkman
+
+    - name: Check if SDKman is installed
+      shell: |
+        set -e
+        source "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
+        sdk version
+      args:
+        executable: /bin/bash
+      register: sdk_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert SDKman is installed
+      ansible.builtin.assert:
+        that: sdk_version.rc == 0
+        fail_msg: "SDKman is not installed"
+

@@ -1,0 +1,8 @@
+---
+# tasks/macos.yml
+- name: Install Rust and Cargo via Homebrew
+  homebrew:
+    name: rust
+    state: present
+    update_homebrew: yes
+

@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  # TODO: @sse Centos and NodeJS errors...
+  # - name: gis-mlc-nodejs-centos7
+  #   image: "geerlingguy/docker-centos7-ansible:latest"
+  #   pre_build_image: true
+  - name: gis-mlc-nodejs-ubuntu20
+    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
+    pre_build_image: true
+  - name: gis-mlc-nodejs-debian10
+    image: "geerlingguy/docker-debian10-ansible:latest"
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

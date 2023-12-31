@@ -1,0 +1,5 @@
+---
+- name: Install Docker using Homebrew
+  homebrew:
+    name: docker
+    state: present

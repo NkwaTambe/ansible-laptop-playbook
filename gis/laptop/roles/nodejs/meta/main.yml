@@ -1,0 +1,29 @@
+galaxy_info:
+  author: Stephane Segning
+  description: NodeJS for all
+  company: adorsys GmbH & Co. KG
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Debian
+    - name: Ubuntu
+    - name: MacOSX
+
+  galaxy_tags:
+    - nvm
+    - nodejs
+    - js
+    - angular
+    - react
+    - typescript
+    - ts-node
+    - ts-node-dev
+
+dependencies:
+  - name: gis.laptop.common

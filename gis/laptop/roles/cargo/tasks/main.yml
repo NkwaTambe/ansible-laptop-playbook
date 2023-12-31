@@ -1,0 +1,9 @@
+---
+# tasks file for roles/cargo
+- name: Install Cargo on Linux
+  include_tasks: linux.yml
+  when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+
+- name: Install Cargo on macOS
+  include_tasks: macos.yml
+  when: ansible_os_family == "Darwin"

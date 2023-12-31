@@ -1,0 +1,31 @@
+- name: Fail if molecule group is missing
+  hosts: localhost
+  tasks:
+    - name: Print some info
+      ansible.builtin.debug:
+        msg: "{{ groups }}"
+
+    - name: Assert group existence
+      ansible.builtin.assert:
+        that: "'molecule' in groups"
+        fail_msg: |
+          molecule group was not found inside inventory groups: {{ groups }}
+
+- name: Converge
+  hosts: molecule
+  gather_facts: true
+  tasks:
+    - name: Include docker role
+      include_role:
+        name: docker
+
+    - name: Check if Docker is installed
+      command: docker --version
+      register: docker_version
+      changed_when: false
+      ignore_errors: true
+
+    - name: Assert Docker is installed
+      ansible.builtin.assert:
+        that: docker_version.rc == 0
+        fail_msg: "Docker is not installed"

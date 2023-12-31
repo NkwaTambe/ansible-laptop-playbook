@@ -1,0 +1,13 @@
+---
+# roles/common/tasks/main.yml
+- name: Include Ubuntu/Debian tasks
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Include CentOS tasks
+  include_tasks: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Include macOS tasks
+  include_tasks: macos.yml
+  when: ansible_os_family == "Darwin"
