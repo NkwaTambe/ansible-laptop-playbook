@@ -15,7 +15,7 @@ jobs:
       matrix:
         role: [ common, docker, nodejs, sdkman, cargo ]
         # Optionally include Python or Ansible versions
-        # python-version: [3.7, 3.8]
+        python-version: ['3.8', 'latest']
         # ansible-version: ['2.9', 'latest']
     steps:
       - name: Check out the repository
@@ -24,7 +24,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
@@ -33,5 +33,5 @@ jobs:
 
       - name: Run Molecule Test for each role
         run: |
-          cd roles/${{ matrix.role }}
+          cd gis/laptop/roles/${{ matrix.role }}
           molecule test
