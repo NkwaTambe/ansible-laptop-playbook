@@ -1,0 +1,37 @@
+name: Ansible CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        role: [ common, docker, nodejs, sdkman, cargo ]
+        # Optionally include Python or Ansible versions
+        # python-version: [3.7, 3.8]
+        # ansible-version: ['2.9', 'latest']
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install molecule[docker] ansible  # or specific Ansible version
+
+      - name: Run Molecule Test for each role
+        run: |
+          cd roles/${{ matrix.role }}
+          molecule test
