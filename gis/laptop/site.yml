@@ -8,11 +8,11 @@
     setup_docker: "{{ docker | default('false') }}"
   roles:
     - common
-    - role: gis.laptop.cargo
+    - role: cargo
       when: setup_cargo == 'true'
-    - role: gis.laptop.sdkman
+    - role: sdkman
       when: setup_sdkman == 'true'
-    - role: gis.laptop.nodejs
+    - role: nodejs
       when: setup_nvm == 'true'
-    - role: gis.laptop.docker
+    - role: docker
       when: setup_docker == 'true'
