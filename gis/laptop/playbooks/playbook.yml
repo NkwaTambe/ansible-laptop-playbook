@@ -1,9 +1,18 @@
 ---
-- name: Test new role from within this playbook
-  hosts: localhost
-  gather_facts: false
-  tasks:
-    - name: Testing role
-      ansible.builtin.include_role:
-        name: gis.laptop.cargo
-        tasks_from: main.yml
+- hosts: all
+  name: Setup Laptop
+  vars:
+    setup_cargo: "{{ cargo | default('false') }}"
+    setup_sdkman: "{{ sdkman | default('false') }}"
+    setup_nvm: "{{ nvm | default('false') }}"
+    setup_docker: "{{ docker | default('false') }}"
+  roles:
+    - common
+    - role: cargo
+      when: setup_cargo == 'true'
+    - role: sdkman
+      when: setup_sdkman == 'true'
+    - role: nodejs
+      when: setup_nvm == 'true'
+    - role: docker
+      when: setup_docker == 'true'

@@ -10,5 +10,9 @@ This playbook is used to install and configure a GIS laptops.
 
 ## Usage
 ```bash
-ansible-playbook -i hosts.ini gis/laptop/site.yml --connection=local -e "nvm=true" -e "sdkman=true"
+ansible-galaxy collection install gis/laptop --upgrade
+```
+
+```bash
+ansible-playbook -i hosts.ini gis.laptop.playbook --connection=local -e "nvm=true" -e "sdkman=true" --flush-cache
 ```
