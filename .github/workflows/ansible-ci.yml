@@ -33,5 +33,5 @@ jobs:
 
       - name: Run Molecule Test for each role
         run: |
-          cd gis/laptop/roles/${{ matrix.role }}
+          cd gis/laptop/playbooks/roles/${{ matrix.role }}
           molecule test
