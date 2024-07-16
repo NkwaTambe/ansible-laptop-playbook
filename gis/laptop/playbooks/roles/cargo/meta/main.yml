@@ -20,5 +20,8 @@ galaxy_info:
     - rust
     - rustup
 
+  namespace: adorsys  
+  role_name: cargo  
+
 dependencies:
   - name: gis.laptop.common
